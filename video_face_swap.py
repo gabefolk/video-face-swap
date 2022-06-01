@@ -11,7 +11,7 @@ cap = cv.VideoCapture(0)
 while True:
     waitTime = 1
     # Capture frame-by-frame
-    _, frame = cap.read() # use underscore to indicate insignificant variable for boolean return to code if out of frames
+    _, frame = cap.read() # use underscore to indicate insignificant variable for boolean return value if out of frames
     face_rects = face_cascade.detectMultiScale(frame, scaleFactor=1.2, minNeighbors=3)    
     #catface_rects = catface_cascade.detectMultiScale(frame, scaleFactor=1.2, minNeighbors=4)
       
