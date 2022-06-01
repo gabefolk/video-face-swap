@@ -11,7 +11,7 @@ cap = cv.VideoCapture(0)
 while True:
     waitTime = 1
     # Capture frame-by-frame
-    _, frame = cap.read() # use underscore to indicate insignificant variable for boolean return value if out of frames
+    _, frame = cap.read() # use underscore to indicate insignificant variable for boolean return value (if out of frames)
     face_rects = face_cascade.detectMultiScale(frame, scaleFactor=1.2, minNeighbors=3)    
     #catface_rects = catface_cascade.detectMultiScale(frame, scaleFactor=1.2, minNeighbors=4)
       
@@ -22,13 +22,16 @@ while True:
         h = face_rects[0][3] 
         xN = face_rects[1][0] 
         yN = face_rects[1][1]
+        # have to create a new numpy array here, or else subarray will be overwritten after assignment* operation
         face1 = np.array(frame[y:y+h, x:x+w])
-        frame[y:y+h, x:x+w] = frame[yN:yN+h, xN:xN+w]
+        frame[y:y+h, x:x+w] = frame[yN:yN+h, xN:xN+w] # the assignment* operation
         frame[yN:yN+h, xN:xN+w] = face1
         waitTime = 2000
     # Display the resulting frame
     cv.imshow('frame', frame)
-    if cv.waitKey(waitTime) & 0xFF == ord('q'): # waits for a key press input # using & 0xFF ensures only last 8 bits of variable are read
+    # waits for a key press input 
+    # using & 0xFF ensures only last 8 bits of variable are read
+    if cv.waitKey(waitTime) & 0xFF == ord('q'): 
         break
 
 # Release the capture
